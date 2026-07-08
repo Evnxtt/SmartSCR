@@ -1,488 +1,140 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartSCR+ | AI-Driven Green Emission Control</title>
-    <link rel="icon" href="Fav.png" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        /* --- KODE WARNA UTAMA & VARIABEL --- */
-        :root {
-            --blue: #001d5e;
-            --green: #01502a;
-            --yellow: #fdb911;
-            --light-bg: #f4f7f6; 
-            --card-bg: #ffffff;   
-            --text-main: #1a202c; 
-            --text-muted: #5a6a85;
-            --border-color: #cbd5e1;
-        }
-
-        /* --- GLOBAL STYLES --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Helvetica, Arial, sans-serif; }
-        body { background-color: var(--light-bg); color: var(--text-main); line-height: 1.6; }
-        
-        /* --- HEADER --- */
-        header {
-            background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
-            padding: 30px 40px;
-            text-align: center;
-            border-bottom: 5px solid var(--yellow);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-        header h1 { font-size: 2.4rem; color: #ffffff; font-weight: 700; letter-spacing: 0.5px; }
-        header p { color: #e2e8f0; font-size: 1.1rem; font-weight: 300; margin-top: 5px; }
-
-        /* --- TABS NAVIGATION --- */
-        .tabs { display: flex; justify-content: center; margin: 25px 0; gap: 12px; flex-wrap: wrap;}
-        .tab-btn {
-            background-color: #ffffff; border: 2px solid var(--blue); color: var(--blue);
-            padding: 12px 24px; font-size: 1rem; border-radius: 6px; cursor: pointer;
-            transition: all 0.2s ease; font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-        }
-        .tab-btn:hover { background-color: rgba(0, 29, 94, 0.05); }
-        .tab-btn.active { background-color: var(--blue); color: #ffffff; border-color: var(--blue); box-shadow: 0 4px 10px rgba(0, 29, 94, 0.2); }
-
-        /* --- MAIN CONTAINER --- */
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px 40px 20px; }
-        .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- EXPLANATION BOX --- */
-        .desc-box {
-            background: #ffffff; border-left: 5px solid var(--green); border-right: 1px solid var(--border-color);
-            border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);
-            padding: 18px 20px; margin-bottom: 25px; border-radius: 4px;
-            color: var(--text-main); font-size: 0.95rem; box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-        .desc-box strong { color: var(--green); }
-
-        /* --- GRID LAYOUT --- */
-        .grid-layout { display: grid; grid-template-columns: 360px 1fr; gap: 25px; }
-        @media (max-width: 950px) { .grid-layout { grid-template-columns: 1fr; } }
-
-        /* --- CONTROL PANELS --- */
-        .control-panel {
-            background: var(--card-bg); border: 1px solid var(--border-color); border-top: 4px solid var(--green);
-            border-radius: 8px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-        }
-        .control-panel h2 { color: var(--blue); margin-bottom: 20px; font-size: 1.3rem; font-weight: 700; border-bottom: 2px solid var(--light-bg); padding-bottom: 10px;}
-        
-        .slider-group { margin-bottom: 22px; }
-        .slider-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-main); font-size: 0.95rem; }
-        .slider-group span { color: var(--green); font-size: 1.05rem; font-weight: 700; }
-        
-        input[type=range] {
-            width: 100%; appearance: none; background: #e2e8f0; height: 8px; border-radius: 4px; outline: none; margin-top: 6px;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--blue); cursor: pointer; border: 2px solid #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        /* --- METRICS GRID --- */
-        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px; }
-        .metric-card {
-            background: var(--card-bg); border: 1px solid var(--border-color); border-top: 4px solid var(--blue);
-            padding: 18px; border-radius: 8px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            transition: transform 0.2s;
-        }
-        .metric-card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.08); }
-        .metric-title { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px; }
-        .metric-value { font-size: 1.8rem; font-weight: 700; color: var(--green); }
-        .metric-value.warning { color: #d97706; } 
-        .metric-value.danger { color: #dc2626; }  
-
-        /* --- CATALYST ANIMATION PANEL --- */
-        .catalyst-panel {
-            margin-bottom: 25px;
-            padding: 20px;
-            text-align: center;
-            border-top: 4px solid var(--yellow);
-        }
-        .catalyst-panel h3 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 15px; font-weight: 700; }
-        .canvas-container {
-            width: 100%;
-            height: 180px;
-            background-color: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-        }
-        canvas { width: 100%; height: 100%; display: block; }
-        
-        /* Legends for Canvas */
-        .canvas-legend { display: flex; justify-content: center; gap: 20px; margin-top: 10px; font-size: 0.85rem; font-weight: 600;}
-        .legend-item { display: flex; align-items: center; gap: 5px; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-        .dot.nox { background-color: #dc2626; }
-        .dot.clean { background-color: var(--green); }
-
-        /* --- AI DIAGNOSIS STATUS BOX --- */
-        .ai-status-box { text-align: center; margin-top: 25px; padding: 20px; background: var(--light-bg); border-radius: 6px; border: 1px dashed var(--border-color);}
-        .ai-status-text { font-size: 1.5rem; font-weight: 700; margin: 8px 0; text-transform: uppercase;}
-        .ai-action { font-size: 0.9rem; color: var(--text-main); font-weight: 500;}
-        
-        .status-normal { color: var(--green); }
-        .status-warning { color: #b45309; }
-        .status-critical { color: #b91c1c; animation: subtle-pulse 1.5s infinite; }
-        @keyframes subtle-pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
-
-        /* --- CHARTS AREA --- */
-        .charts-area { display: flex; flex-direction: column; gap: 25px; }
-        .chart-container {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 8px; padding: 20px; position: relative; height: 350px; width: 100%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-        }
-    </style>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1> <img src="Fav.png" alt="Logo" width="50" height="50"> SmartSCR+ AI Dashboard</h1>
-        <p>Integrasi AI Adaptive Control & Predictive Maintenance menuju Teknologi Diesel Ramah Lingkungan</p>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo"> <img src="logo.png" alt="SmartSCR+ Logo"> SmartSCR+</div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="feature_1.html">AI Adaptive Control</a>
+            <a href="feature_2.html">Predictive Maintenance</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="badge">🚀 INGENIC 2026 Grand Finalist</div>
+            <h1>AI-Driven Green<br><span class="highlight">Emission Control</span></h1>
+            <p>Innovation for Green and Sustainable Future. Revolutionizing diesel engine exhaust systems through advanced Artificial Intelligence and dynamic predictive maintenance.</p>
+            <div class="btn-group">
+                <a href="feature_1.html" class="btn btn-primary">Explore AI Control</a>
+                <a href="feature_2.html" class="btn btn-outline">View Diagnostics</a>
+            </div>
+        </div>
     </header>
 
-    <div class="tabs">
-        <button class="tab-btn active" onclick="openTab('tab1', this)">⚙️ Teknologi 1: AI Adaptive Control</button>
-        <button class="tab-btn" onclick="openTab('tab2', this)">🛠️ Teknologi 2: Predictive Maintenance</button>
-    </div>
-
-    <div class="container">
-        
-        <div id="tab1" class="tab-content active">
-            <div class="desc-box">
-                <strong>Penjelasan AI Adaptive Control:</strong> Sistem secara dinamis mengoreksi volume injeksi secara *real-time* menyesuaikan performa suhu gas buang ideal serta konsentrasi raw polutan untuk mengoptimalkan efisiensi katalis.
+    <!-- NEW: FEATURE SHOWCASE (TEXT & VIDEO) -->
+    <section class="showcase-section">
+        <div class="showcase-container">
+            <div class="showcase-text">
+                <h2>Revolutionizing Emission Control</h2>
+                <p>SmartSCR+ is not just a standard emission system. It is a proactive, intelligent ecosystem designed to drastically reduce hazardous NOx emissions while protecting engine hardware.</p>
+                
+                <ul class="feature-list">
+                    <li>
+                        <span class="icon">🧠</span>
+                        <div>
+                            <strong>Real-Time AI Adaptive Control</strong>
+                            <p>Automatically perfectly balances urea injection based on live temperature, NOx levels, and engine load.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="icon">⚙️</span>
+                        <div>
+                            <strong>Predictive Self-Healing</strong>
+                            <p>Detects mechanical clogging or aging before it causes failure, and dynamically compensates output.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="icon">🌱</span>
+                        <div>
+                            <strong>Eco-Friendly Guarantee</strong>
+                            <p>Ensures compliance with strict global environmental SDGs by preventing dangerous ammonia slip.</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
-
-            <div class="grid-layout">
-                <div class="control-panel">
-                    <h2>Parameter Sensor</h2>
-                    <div class="slider-group">
-                        <label>Suhu Exhaust: <span id="val_temp">250</span> °C</label>
-                        <input type="range" id="sl_temp" min="150" max="500" value="250" oninput="updateTab1()">
-                    </div>
-                    <div class="slider-group">
-                        <label>Raw NOx (Polutan Masuk): <span id="val_nox">600</span> ppm</label>
-                        <input type="range" id="sl_nox" min="200" max="1000" value="600" oninput="updateTab1()">
-                    </div>
-                    <div class="slider-group">
-                        <label>Fluktuasi Beban Mesin: <span id="val_load">50</span> %</label>
-                        <input type="range" id="sl_load" min="0" max="100" value="50" oninput="updateTab1()">
-                    </div>
-                </div>
-
-                <div>
-                    <div class="control-panel catalyst-panel">
-                        <h3>Simulasi Aliran Gas dalam SCR Catalyst (Real-time)</h3>
-                        <div class="canvas-container">
-                            <canvas id="catalystCanvas"></canvas>
-                        </div>
-                        <div class="canvas-legend">
-                            <div class="legend-item"><span class="dot nox"></span> Polutan NOx Masuk</div>
-                            <div class="legend-item"><span class="dot clean"></span> Udara Bersih (N₂ + H₂O) Keluar</div>
-                        </div>
-                    </div>
-
-                    <div class="metrics-grid">
-                        <div class="metric-card">
-                            <div class="metric-title">Rata-rata Injeksi AI</div>
-                            <div class="metric-value" id="m_urea" style="color: var(--blue);">0.00 L/h</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-title">Efisiensi Reduksi NOx</div>
-                            <div class="metric-value" id="m_eff" style="color: var(--green);">0.0 %</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-title">Risiko Ammonia Slip</div>
-                            <div class="metric-value" id="m_slip">-</div>
-                        </div>
-                    </div>
-
-                    <div class="charts-area">
-                        <div class="chart-container"><canvas id="chart1_inj"></canvas></div>
-                        <div class="chart-container"><canvas id="chart1_em"></canvas></div>
+            
+            <div class="showcase-video">
+                <!-- Ganti src ini dengan link video YouTube atau tag <video> lokal kamu -->
+                <div class="video-wrapper">
+                    <!-- Contoh jika pakai iframe YouTube: 
+                    <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
+                    
+                    <!-- Placeholder video sementara -->
+                    <div class="video-placeholder">
+                        <span class="play-btn">▶</span>
+                        <p>SmartSCR+ Project Demo</p>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div id="tab2" class="tab-content">
-            <div class="desc-box">
-                <strong>Penjelasan AI Predictive Maintenance:</strong> Fitur diagnostik cerdas ini memproyeksikan indeks kesehatan fisik komponen *hardware* sebelum terjadi kerusakan struktural mendadak, mengaktifkan mode *(Self-Healing)*.
+    <!-- ABOUT & TEAM CARDS -->
+    <section class="info-section">
+        <div class="section-header">
+            <h2>About The Project</h2>
+            <p>Developed by <strong>Team Rumitech</strong> from the <strong>Bandung Polytechnic for Manufacturing</strong>. Competing in the Green Technology and Engineering Innovation (GTEI) category to answer environmental challenges.</p>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card special-card">
+                <div class="card-icon">🌍</div>
+                <h3>INGENIC 2026 Theme</h3>
+                <p>"Innovation for Green and Sustainable Future". Our system aligns with global SDGs by radically reducing hazardous NOx emissions from industrial diesel engines.</p>
             </div>
-
-            <div class="grid-layout">
-                <div class="control-panel">
-                    <h2>Simulasi Anomali Fisik</h2>
-                    <div class="slider-group">
-                        <label>Tingkat Sumbatan Injektor: <span id="val_clog">0</span> %</label>
-                        <input type="range" id="sl_clog" min="0" max="80" value="0" oninput="updateTab2()">
-                    </div>
-                    <div class="slider-group">
-                        <label>Thermal Aging (Penuaan Katalis): <span id="val_aging">0</span> %</label>
-                        <input type="range" id="sl_aging" min="0" max="50" value="0" oninput="updateTab2()">
-                    </div>
-
-                    <div class="ai-status-box">
-                        <div style="color: var(--text-muted); text-transform: uppercase; font-size: 0.85rem; font-weight: 700;">Status Analisis AI</div>
-                        <div class="ai-status-text" id="status_text">NORMAL (100.0%)</div>
-                        <div class="ai-action" id="status_action">Tindakan AI: Sistem berjalan optimal tanpa anomali.</div>
-                    </div>
-                </div>
-
-                <div class="charts-area">
-                    <div class="chart-container"><canvas id="chart2_bar_urea"></canvas></div>
-                    <div class="chart-container"><canvas id="chart2_bar_nox"></canvas></div>
-                </div>
+            <div class="info-card">
+                <div class="card-icon">👥</div>
+                <h3>Team Rumitech</h3>
+                <p>Proudly developed by delegates from POLMAN Bandung:</p>
+                <ul class="team-list">
+                    <li>Nadia Amna Nafessa</li>
+                    <li>M. Ferdi Setiawan</li>
+                    <li>M. Putra Nugraha</li>
+                    <li>Sabrina Oktavia Yusuf</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">🎯</div>
+                <h3>Our Ultimate Goal</h3>
+                <p>To bridge the gap between heavy industrial performance and environmental sustainability, ensuring a cleaner atmosphere for the next generation.</p>
             </div>
         </div>
+    </section>
 
-    </div>
+    <!-- NEW: FOOTER -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo"> <img src="logo.png" alt="SmartSCR+ Logo"> SmartSCR+</div>
+                <p>Empowering green technology through Artificial Intelligence.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="feature_1.html">AI Adaptive Control</a>
+                <a href="feature_2.html">Predictive Maintenance</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Supported By</h4>
+                <p>Bandung Polytechnic for Manufacturing</p>
+                <p>INGENIC 2026 - GTEI Category</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SmartSCR+ Team Rumitech. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-    <script>
-        Chart.defaults.color = '#1a202c';
-        Chart.defaults.font.family = "'Segoe UI', sans-serif";
-        Chart.defaults.font.weight = '500';
-
-        let c1_inj, c1_em, c2_urea, c2_nox;
-
-        // --- GLOBAL VARIABLES FOR CANVAS ANIMATION ---
-        let globalFlowSpeed = 1;
-        let globalNoxDensity = 0.5;
-        let globalEfficiency = 0.8;
-        let particles = [];
-        const canvas = document.getElementById('catalystCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        function resizeCanvas() {
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-
-        class Particle {
-            constructor() {
-                this.x = -10;
-                this.y = Math.random() * canvas.height;
-                this.baseSpeed = Math.random() * 1.5 + 1.5;
-                this.size = Math.random() * 2.5 + 2;
-                this.color = '#dc2626'; // Merah (NOx)
-                this.passed = false;
-                this.wobbleOffset = Math.random() * Math.PI * 2;
-            }
-            update() {
-                // Bergerak ke kanan dengan kecepatan yang dipengaruhi beban mesin
-                this.x += this.baseSpeed * globalFlowSpeed;
-                // Gerakan naik turun sedikit (turbulensi gas)
-                this.y += Math.sin(this.x * 0.05 + this.wobbleOffset) * 0.5;
-
-                // Jika melewati zona katalis (tengah kanvas)
-                let catalystStart = canvas.width * 0.35;
-                if (!this.passed && this.x > catalystStart + (Math.random() * 50)) {
-                    this.passed = true;
-                    // Berubah jadi udara bersih sesuai persentase efisiensi AI
-                    if (Math.random() < globalEfficiency) {
-                        this.color = '#01502a'; // Hijau (N2 + H2O)
-                    }
-                }
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function animateCatalyst() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Gambar Background Honeycomb / Catalyst Monolith
-            let catStartX = canvas.width * 0.35;
-            let catWidth = canvas.width * 0.3;
-            
-            // Box Katalis
-            ctx.fillStyle = '#e2e8f0';
-            ctx.fillRect(catStartX, 10, catWidth, canvas.height - 20);
-            ctx.strokeStyle = '#cbd5e1';
-            ctx.lineWidth = 1.5;
-            
-            // Garis-garis honeycomb
-            for(let i = 15; i < canvas.height - 10; i += 12) {
-                ctx.beginPath();
-                ctx.moveTo(catStartX, i);
-                ctx.lineTo(catStartX + catWidth, i);
-                ctx.stroke();
-            }
-
-            // Spawn partikel baru (frekuensi dipengaruhi kadar NOx)
-            if (Math.random() < globalNoxDensity) {
-                particles.push(new Particle());
-                if (globalNoxDensity > 0.6) particles.push(new Particle()); // Extra partikel jika NOx tinggi
-            }
-
-            // Update & Gambar partikel
-            for (let i = particles.length - 1; i >= 0; i--) {
-                particles[i].update();
-                particles[i].draw();
-                // Hapus jika keluar layar
-                if (particles[i].x > canvas.width + 10) {
-                    particles.splice(i, 1);
-                }
-            }
-            requestAnimationFrame(animateCatalyst);
-        }
-
-        // --- NAVIGATION TABS ---
-        function openTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
-        }
-
-        // --- INISIALISASI GRAFIK TAB 1 ---
-        function initChartsTab1() {
-            const chartOptions = (titleText) => ({
-                responsive: true, maintainAspectRatio: false,
-                plugins: { 
-                    title: { display: true, text: titleText, color: '#001d5e', font: { size: 15, weight: 'bold' } },
-                    legend: { labels: { color: '#1a202c', font: { weight: '600' } } }
-                },
-                scales: { 
-                    x: { grid: { color: '#e2e8f0' } }, y: { beginAtZero: true, grid: { color: '#e2e8f0' } } 
-                }
-            });
-
-            c1_inj = new Chart(document.getElementById('chart1_inj').getContext('2d'), {
-                type: 'line',
-                data: { labels: [], datasets: [
-                    { label: 'Injeksi ECU Statis (L/h)', borderColor: '#dc2626', borderDash: [4, 4], data: [], borderWidth: 2, pointRadius: 0 },
-                    { label: 'AI Adaptive Injection (L/h)', borderColor: '#01502a', backgroundColor: 'rgba(1, 80, 42, 0.06)', data: [], borderWidth: 3, pointRadius: 0, fill: true }
-                ]},
-                options: chartOptions('Perbandingan Perintah Injeksi Urea Real-time')
-            });
-
-            c1_em = new Chart(document.getElementById('chart1_em').getContext('2d'), {
-                type: 'line',
-                data: { labels: [], datasets: [
-                    { label: 'NOx Lolos - ECU Statis (ppm)', borderColor: '#dc2626', borderDash: [4, 4], data: [], borderWidth: 2, pointRadius: 0 },
-                    { label: 'NOx Lolos - Smart AI (ppm)', borderColor: '#01502a', backgroundColor: 'rgba(1, 80, 42, 0.06)', data: [], borderWidth: 3, pointRadius: 0, fill: true }
-                ]},
-                options: chartOptions('Dampak Akhir Emisi NOx Keluar Ke Lingkungan')
-            });
-        }
-
-        // --- UPDATE LOGIKA DATA TAB 1 ---
-        function updateTab1() {
-            let temp = parseFloat(document.getElementById('sl_temp').value);
-            let nox = parseFloat(document.getElementById('sl_nox').value);
-            let load = parseFloat(document.getElementById('sl_load').value);
-
-            document.getElementById('val_temp').innerText = temp;
-            document.getElementById('val_nox').innerText = nox;
-            document.getElementById('val_load').innerText = load;
-
-            let labels = [], ecuUreaData = [], aiUreaData = [], noxEcuData = [], noxAiData = [];
-            let totalAiUrea = 0;
-            let ai_efficiency = 0, factor = 0;
-
-            if (temp < 220) { ai_efficiency = 0.40 + (temp - 150) * 0.004; factor = 0.6; } 
-            else if (temp >= 220 && temp <= 350) { ai_efficiency = 0.95 - (load / 1000); factor = 1.0; } 
-            else { ai_efficiency = 0.85 - (temp - 350) * 0.002; factor = 0.85; }
-
-            // UPDATE ANIMATION VARIABLES
-            globalEfficiency = ai_efficiency;
-            globalFlowSpeed = 0.5 + (load / 50); // Kecepatan meningkat seiring beban
-            globalNoxDensity = 0.2 + (nox / 1000); // Kepadatan partikel berdasarkan raw NOx
-
-            const base_urea_ratio = 0.002;
-
-            for (let i = 0; i < 100; i++) {
-                labels.push(i);
-                let noiseTemp = (Math.random() * 4 - 2);
-                let noiseNox = (Math.random() * 20 - 10);
-                let t_dyn = temp + (load / 10) * Math.sin(i / 5) + noiseTemp;
-                let n_dyn = nox + (load) * Math.cos(i / 4) + noiseNox;
-
-                let ecu_inj = nox * base_urea_ratio;
-                let ai_inj = n_dyn * base_urea_ratio * factor;
-
-                ecuUreaData.push(ecu_inj); aiUreaData.push(ai_inj); totalAiUrea += ai_inj;
-                noxEcuData.push(n_dyn * 0.4); noxAiData.push(n_dyn * (1 - ai_efficiency));
-            }
-
-            document.getElementById('m_urea').innerText = (totalAiUrea / 100).toFixed(2) + " L/h";
-            document.getElementById('m_eff').innerText = (ai_efficiency * 100).toFixed(1) + " %";
-
-            let m_slip = document.getElementById('m_slip');
-            if (temp >= 220 && temp <= 350) { m_slip.innerText = "SANGAT AMAN"; m_slip.className = "metric-value"; m_slip.style.color = "var(--green)"; } 
-            else if (temp > 350) { m_slip.innerText = "RESIKO TINGGI"; m_slip.className = "metric-value danger"; } 
-            else { m_slip.innerText = "RESIKO DEPOSIT"; m_slip.className = "metric-value warning"; }
-
-            c1_inj.data.labels = labels; c1_inj.data.datasets[0].data = ecuUreaData; c1_inj.data.datasets[1].data = aiUreaData; c1_inj.update();
-            c1_em.data.labels = labels; c1_em.data.datasets[0].data = noxEcuData; c1_em.data.datasets[1].data = noxAiData; c1_em.update();
-        }
-
-        // --- INISIALISASI GRAFIK TAB 2 ---
-        function initChartsTab2() {
-            const barOptions = (titleText, maxVal) => ({
-                responsive: true, maintainAspectRatio: false,
-                plugins: { title: { display: true, text: titleText, color: '#001d5e', font: { size: 15, weight: 'bold' } }, legend: { display: false } },
-                scales: { x: { grid: { display: false } }, y: { beginAtZero: true, max: maxVal, grid: { color: '#e2e8f0' } } }
-            });
-
-            c2_urea = new Chart(document.getElementById('chart2_bar_urea').getContext('2d'), {
-                type: 'bar',
-                data: { labels: ['Volume Target Ideal', 'Aktual Murni (Tanpa AI)', 'Output Kompensasi (AI Self-Healing)'], datasets: [{ data: [0, 0, 0], backgroundColor: ['#001d5e', '#dc2626', '#01502a'], borderRadius: 4 }] },
-                options: barOptions('Volume Aliran Cairan Urea Keluar Pompa', 3.0)
-            });
-
-            c2_nox = new Chart(document.getElementById('chart2_bar_nox').getContext('2d'), {
-                type: 'bar',
-                data: { labels: ['Ambang Standar Aman', 'Emisi Lolos (Tanpa Koreksi AI)', 'Emisi Lolos (Dengan AI Healing)'], datasets: [{ data: [0, 0, 0], backgroundColor: ['#64748b', '#dc2626', '#01502a'], borderRadius: 4 }] },
-                options: barOptions('Dampak Kerusakan Fisik Terhadap Emisi Akhir', null)
-            });
-        }
-
-        // --- UPDATE LOGIKA DATA TAB 2 ---
-        function updateTab2() {
-            let clog = parseFloat(document.getElementById('sl_clog').value);
-            let aging = parseFloat(document.getElementById('sl_aging').value);
-
-            document.getElementById('val_clog').innerText = clog; document.getElementById('val_aging').innerText = aging;
-
-            let health_score = 100 - (clog * 0.8) - (aging * 0.5);
-            let s_text = document.getElementById('status_text'); let s_action = document.getElementById('status_action');
-
-            if (health_score > 80) { s_text.innerText = `NORMAL (${health_score.toFixed(1)}%)`; s_text.className = "ai-status-text status-normal"; s_action.innerText = "Tindakan AI: Komponen dalam status baik. Operasional berjalan optimal."; } 
-            else if (health_score > 50) { s_text.innerText = `WARNING! (${health_score.toFixed(1)}%)`; s_text.className = "ai-status-text status-warning"; s_action.innerText = "Tindakan AI: Mode Self-Healing aktif! AI mendeteksi sumbatan mekanis lalu menaikkan modulasi tekanan pompa urea."; } 
-            else { s_text.innerText = `KRITIS (${health_score.toFixed(1)}%)`; s_text.className = "ai-status-text status-critical"; s_action.innerText = "Tindakan AI: Kerusakan melampaui batas toleransi. Sistem merekomendasikan perbaikan fisik mekanik segera."; }
-
-            let ideal_urea = 1.5; let actual_urea = ideal_urea * (1 - (clog / 100)); let actual_healed;
-
-            if (clog > 15 && clog <= 60) { actual_healed = (ideal_urea * (1 + (clog / 100) * 1.2)) * (1 - (clog / 100)); } 
-            else if (clog > 60) { actual_healed = (ideal_urea * 2.0) * (1 - (clog / 100)); } 
-            else { actual_healed = actual_urea; }
-
-            let nox_base = 500;
-            c2_urea.data.datasets[0].data = [ideal_urea, actual_urea, actual_healed]; c2_urea.update();
-            c2_nox.data.datasets[0].data = [50, nox_base * (1 - (0.9 * (actual_urea / ideal_urea) * (1 - aging / 100))), nox_base * (1 - (0.9 * (actual_healed / ideal_urea) * (1 - aging / 100)))]; c2_nox.update();
-        }
-
-        window.onload = function() {
-            initChartsTab1(); initChartsTab2();
-            updateTab1(); updateTab2();
-            
-            // Start Canvas Animation
-            resizeCanvas();
-            animateCatalyst();
-        };
-    </script>
 </body>
 </html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Adaptive Control | SmartSCR+</title>
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><img src="logo.png" alt="SmartSCR+ Logo"> SmartSCR+</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="feature_1.html" class="active">AI Adaptive Control</a>
+            <a href="feature_2.html">Predictive Maintenance</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">⚙️ Technology 1: AI Adaptive Control</h1>
+        <div class="desc-box">
+            <strong>System Overview:</strong> The system dynamically corrects injection volume in real-time, adjusting to the ideal exhaust gas temperature and raw pollutant concentration to optimize catalyst efficiency.
+        </div>
+
+        <div class="grid-layout">
+            <div class="control-panel">
+                <h2>Sensor Parameters</h2>
+                <div class="slider-group">
+                    <label>Exhaust Temperature: <span id="val_temp">250</span> °C</label>
+                    <input type="range" id="sl_temp" min="150" max="500" value="250">
+                </div>
+                <div class="slider-group">
+                    <label>Raw NOx (Input Pollutant): <span id="val_nox">600</span> ppm</label>
+                    <input type="range" id="sl_nox" min="200" max="1000" value="600">
+                </div>
+                <div class="slider-group">
+                    <label>Engine Load Fluctuation: <span id="val_load">50</span> %</label>
+                    <input type="range" id="sl_load" min="0" max="100" value="50">
+                </div>
+            </div>
+
+            <div>
+                <div class="control-panel" style="text-align: center;">
+                    <h2 style="border:none; margin-bottom: 10px;">SCR Catalyst Gas Flow Simulation (Real-time)</h2>
+                    <div class="canvas-container">
+                        <canvas id="catalystCanvas"></canvas>
+                    </div>
+                    <div class="canvas-legend">
+                        <div><span class="dot nox"></span> Input NOx Pollutant</div>
+                        <div><span class="dot clean"></span> Clean Air (N₂ + H₂O) Output</div>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-title">Average AI Injection</div>
+                        <div class="metric-value" id="m_urea" style="color: var(--dark-blue);">0.00 L/h</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">NOx Reduction Efficiency</div>
+                        <div class="metric-value" id="m_eff" style="color: var(--primary-green);">0.0 %</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Ammonia Slip Risk</div>
+                        <div class="metric-value" id="m_slip">-</div>
+                    </div>
+                </div>
+
+                <div class="charts-area">
+                    <div class="chart-container"><canvas id="chart1_inj"></canvas></div>
+                    <div class="chart-container"><canvas id="chart1_em"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo"> <img src="logo.png" alt="SmartSCR+ Logo"> SmartSCR+</div>
+                <p>Empowering green technology through Artificial Intelligence.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html">Home</a>
+                <a href="feature_1.html">AI Adaptive Control</a>
+                <a href="feature_2.html">Predictive Maintenance</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Supported By</h4>
+                <p>Bandung Polytechnic for Manufacturing</p>
+                <p>INGENIC 2026 - GTEI Category</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SmartSCR+ Team Rumitech. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
