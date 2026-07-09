@@ -379,3 +379,121 @@ footer {
         justify-content: center;
     }
 }
+
+/* --- UTILITIES --- */
+.center-text {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+}
+
+/* --- ARCHITECTURE SECTION --- */
+.architecture-section {
+    padding: 80px 40px;
+    background: var(--bg-color);
+}
+.arch-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+.arch-step {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    flex: 1;
+    position: relative;
+    border-top: 4px solid var(--border-color);
+    transition: transform 0.3s;
+}
+.arch-step:hover {
+    transform: translateY(-5px);
+}
+.highlight-step {
+    border-top: 4px solid var(--accent-green);
+    background: linear-gradient(to bottom, #ffffff, var(--light-green));
+}
+.step-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--light-green);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    opacity: 0.5;
+}
+.arch-step h3 {
+    color: var(--dark-blue);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    position: relative;
+    z-index: 2;
+}
+.arch-step p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 2;
+}
+.arch-arrow {
+    font-size: 2rem;
+    color: var(--border-color);
+}
+
+/* --- SCIENTIFIC FOUNDATION SECTION --- */
+.scientific-section {
+    padding: 80px 40px;
+    background: var(--dark-blue);
+    color: white;
+}
+.scientific-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.sci-text h2 {
+    color: var(--accent-yellow);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+.sci-text > p {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin-bottom: 40px;
+}
+.sci-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+.sci-metric {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-green);
+}
+.sci-metric h4 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+.sci-metric p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+/* Responsive Adjustments for New Sections */
+@media (max-width: 900px) {
+    .arch-grid {
+        flex-direction: column;
+    }
+    .arch-arrow {
+        transform: rotate(90deg);
+        margin: 10px 0;
+    }
+}

@@ -9,7 +9,6 @@
 </head>
 <body>
 
-    <!-- NAVIGATION -->
     <nav>
         <div class="logo"> <img src="logo.png" alt="SmartSCR+ Logo"> SmartSCR+</div>
         <div class="nav-links">
@@ -19,7 +18,6 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <header class="hero">
         <div class="hero-content">
             <div class="badge">🚀 INGENIC 2026 Grand Finalist</div>
@@ -32,7 +30,6 @@
         </div>
     </header>
 
-    <!-- NEW: FEATURE SHOWCASE (TEXT & VIDEO) -->
     <section class="showcase-section">
         <div class="showcase-container">
             <div class="showcase-text">
@@ -65,12 +62,7 @@
             </div>
             
             <div class="showcase-video">
-                <!-- Ganti src ini dengan link video YouTube atau tag <video> lokal kamu -->
                 <div class="video-wrapper">
-                    <!-- Contoh jika pakai iframe YouTube: 
-                    <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
-                    
-                    <!-- Placeholder video sementara -->
                     <div class="video-placeholder">
                         <span class="play-btn">▶</span>
                         <p>SmartSCR+ Project Demo</p>
@@ -80,23 +72,75 @@
         </div>
     </section>
 
-    <!-- ABOUT & TEAM CARDS -->
+    <section class="architecture-section">
+        <div class="section-header center-text">
+            <h2>How SmartSCR+ Works</h2>
+            <p>A seamless integration of edge computing, deep fuzzy logic, and real-time actuation.</p>
+        </div>
+        <div class="arch-grid">
+            <div class="arch-step">
+                <div class="step-number">01</div>
+                <h3>Data Acquisition</h3>
+                <p>High-precision sensors capture real-time Exhaust Temperature, Raw NOx ppm, Space Velocity, and Backpressure data.</p>
+            </div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-step highlight-step">
+                <div class="step-number">02</div>
+                <h3>AI Processing Core</h3>
+                <p>The 15-Rule Fuzzy Logic controller analyzes the dynamic data, calculates the Ammonia Coverage Ratio θ, and computes Health Scores.</p>
+            </div>
+            <div class="arch-arrow">➔</div>
+            <div class="arch-step">
+                <div class="step-number">03</div>
+                <h3>Dynamic Actuation</h3>
+                <p>The system executes precise urea dosing commands and triggers pump pressure Self-Healing protocols if mechanical anomalies are detected.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="scientific-section">
+        <div class="scientific-container">
+            <div class="sci-text">
+                <h2>Built on Q1 Scientific Research</h2>
+                <p>Unlike conventional lookup-table ECUs, SmartSCR+ operates on advanced mathematical models derived from the latest Cu-SCR catalyst research.</p>
+                <div class="sci-metrics-grid">
+                    <div class="sci-metric">
+                        <h4>Ammonia Coverage θ</h4>
+                        <p>Prevents toxic $NH_3$ slip by mathematically modeling catalyst storage capacity.</p>
+                    </div>
+                    <div class="sci-metric">
+                        <h4>Space Velocity (SV)</h4>
+                        <p>Calculates exact exhaust gas mass flow to determine kinetic reaction time.</p>
+                    </div>
+                    <div class="sci-metric">
+                        <h4>Exhaust Backpressure</h4>
+                        <p>Real-time physical anomaly detection to identify injector crystallization.</p>
+                    </div>
+                    <div class="sci-metric">
+                        <h4>Remaining Useful Life</h4>
+                        <p>Predicts exact component failure times (RUL) through thermal aging degradation tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="info-section">
-        <div class="section-header">
+        <div class="section-header center-text">
             <h2>About The Project</h2>
-            <p>Developed by <strong>Team Rumitech</strong> from the <strong>Bandung Polytechnic for Manufacturing</strong>. Competing in the Green Technology and Engineering Innovation (GTEI) category to answer environmental challenges.</p>
+            <p>Developed by <strong>Team Rumitech</strong> from the <strong>Bandung Polytechnic for Manufacturing</strong>.</p>
         </div>
         
         <div class="info-grid">
             <div class="info-card special-card">
                 <div class="card-icon">🌍</div>
                 <h3>INGENIC 2026 Theme</h3>
-                <p>"Innovation for Green and Sustainable Future". Our system aligns with global SDGs by radically reducing hazardous NOx emissions from industrial diesel engines.</p>
+                <p>"Innovation for Green and Sustainable Future". Aligned with global SDGs by radically reducing hazardous NOx emissions from industrial diesel engines.</p>
             </div>
             <div class="info-card">
                 <div class="card-icon">👥</div>
                 <h3>Team Rumitech</h3>
-                <p>Proudly developed by delegates from POLMAN Bandung:</p>
+                <p>Delegates from POLMAN Bandung:</p>
                 <ul class="team-list">
                     <li>Nadia Amna Nafessa</li>
                     <li>M. Ferdi Setiawan</li>
@@ -112,11 +156,10 @@
         </div>
     </section>
 
-    <!-- NEW: FOOTER -->
     <footer>
         <div class="footer-container">
             <div class="footer-brand">
-                <div class="logo"> <img src="logo.png" alt="SmartSCR+ Logo"> SmartSCR+</div>
+                <div class="logo"> <img src="logo.png" alt="SmartSCR+ Logo" style="height:30px; margin-right:10px; vertical-align:middle;"> SmartSCR+</div>
                 <p>Empowering green technology through Artificial Intelligence.</p>
             </div>
             <div class="footer-links">
