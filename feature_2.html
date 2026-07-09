@@ -37,6 +37,17 @@
                     <input type="range" id="sl_aging" min="0" max="50" value="0">
                 </div>
 
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <div style="background: var(--bg-color); padding: 15px; border-radius: 8px; flex: 1; text-align: center; border: 1px solid var(--border-color);">
+                        <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">EXHAUST BACKPRESSURE</div>
+                        <div id="m_backpressure" style="font-size: 1.4rem; color: #ef4444; font-weight: 800;">15.0 kPa</div>
+                    </div>
+                    <div style="background: var(--bg-color); padding: 15px; border-radius: 8px; flex: 1; text-align: center; border: 1px solid var(--border-color);">
+                        <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">REMAINING USEFUL LIFE</div>
+                        <div id="m_rul" style="font-size: 1.4rem; color: var(--primary-green); font-weight: 800;">10,000 Hrs</div>
+                    </div>
+                </div>
+
                 <div class="ai-status-box">
                     <div style="color: var(--text-muted); text-transform: uppercase; font-size: 0.9rem; font-weight: 700;">AI Analysis Status</div>
                     <div class="ai-status-text" id="status_text">NORMAL (100.0%)</div>

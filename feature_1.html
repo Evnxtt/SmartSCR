@@ -40,6 +40,10 @@
                     <label>Engine Load Fluctuation: <span id="val_load">50</span> %</label>
                     <input type="range" id="sl_load" min="0" max="100" value="50">
                 </div>
+                <div class="slider-group">
+                    <label>Exhaust Flow Rate (Mass): <span id="val_flow">300</span> kg/h</label>
+                    <input type="range" id="sl_flow" min="100" max="1000" value="300" step="10">
+                </div>
             </div>
 
             <div>
@@ -49,23 +53,31 @@
                         <canvas id="catalystCanvas"></canvas>
                     </div>
                     <div class="canvas-legend">
-                        <div><span class="dot nox"></span> Input NOx Pollutant</div>
-                        <div><span class="dot clean"></span> Clean Air (N₂ + H₂O) Output</div>
+                        <div><span class="dot nox"></span> Input NOx</div>
+                        <div><span class="dot clean"></span> Clean Air (N₂ + H₂O)</div>
                     </div>
                 </div>
 
-                <div class="metrics-grid">
+                <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
                     <div class="metric-card">
-                        <div class="metric-title">Average AI Injection</div>
-                        <div class="metric-value" id="m_urea" style="color: var(--dark-blue);">0.00 L/h</div>
+                        <div class="metric-title">Avg. AI Injection</div>
+                        <div class="metric-value" id="m_urea" style="color: var(--dark-blue); font-size: 1.5rem;">0.00 L/h</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-title">NOx Reduction Efficiency</div>
-                        <div class="metric-value" id="m_eff" style="color: var(--primary-green);">0.0 %</div>
+                        <div class="metric-title">NOx Reduction</div>
+                        <div class="metric-value" id="m_eff" style="color: var(--primary-green); font-size: 1.5rem;">0.0 %</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-title">Ammonia Slip Risk</div>
-                        <div class="metric-value" id="m_slip">-</div>
+                        <div class="metric-title" title="Ammonia Coverage Ratio (θ)">NH₃ Storage (θ)</div>
+                        <div class="metric-value" id="m_theta" style="font-size: 1.5rem;">0.0 %</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title" title="Actual unreacted ammonia escaping">NH₃ Slip Sensor</div>
+                        <div class="metric-value" id="m_slip_ppm" style="font-size: 1.5rem;">0 ppm</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Status Risk</div>
+                        <div class="metric-value" id="m_slip" style="font-size: 1.1rem; padding-top:10px;">-</div>
                     </div>
                 </div>
 
