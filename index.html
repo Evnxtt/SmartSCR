@@ -6,6 +6,7 @@
     <title>SmartSCR+ | AI-Driven Green Emission Control</title>
     <link rel="icon" href="logo.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 </head>
 <body>
 
@@ -62,20 +63,10 @@
             </div>
             <div class="showcase-video">
                 <div class="video-wrapper">
-                    <!-- Gunakan ID agar bisa dikontrol oleh JavaScript -->
-                    <video id="demoVideo" poster="thumbnail.png" preload="metadata">
-                        <source src="https://youtu.be/JFvauJAKay0" type="video/mp4">
-                        Browser Anda tidak mendukung tag video HTML5.
-                    </video>
-                    
-                    <!-- Overlay Tombol Play Besar -->
-                    <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
-                        <div class="play-btn-large">▶</div>
-                        <p class="play-text">SmartSCR+ Project Demo</p>
-                    </div>
+                    <img src="thumbnail.png" alt="SmartSCR+ Demo Thumbnail" class="video-thumbnail">
+                    <a href="https://www.youtube.com/watch?v=JFvauJAKay0" class="glightbox play-btn"></a>
                 </div>
             </div>
-        </div>
     </section>
 
     <section class="info-section">
@@ -131,26 +122,17 @@
             <p>&copy; 2026 SmartSCR+ Team Rumitech. All Rights Reserved.</p>
         </div>
     </footer>
-<script>
-        function playVideo() {
-            const video = document.getElementById('demoVideo');
-            const overlay = document.getElementById('videoOverlay');
-            
-            // Putar video
-            video.play();
-            
-            // Tampilkan control bar (play/pause/duration) asli bawaan browser setelah di-play
-            video.setAttribute('controls', 'controls'); 
-            
-            // Animasi menghilang (fade out)
-            overlay.style.opacity = '0';
-            overlay.style.pointerEvents = 'none'; // Mencegah klik ganda mengganggu video
-            
-            // Hilangkan total dari layar setelah animasi selesai
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 400); 
-        }
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script>
+        // Inisialisasi GLightbox agar mendeteksi semua class "glightbox"
+        const lightbox = GLightbox({
+            selector: '.glightbox'
+        });
+    </script>
+</body>
+</body>
+</body>
+</body>
+</body>
 </body>
 </html>
