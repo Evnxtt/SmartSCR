@@ -60,12 +60,18 @@
                     </li>
                 </ul>
             </div>
-            
             <div class="showcase-video">
                 <div class="video-wrapper">
-                    <div class="video-placeholder">
-                        <span class="play-btn">▶</span>
-                        <p>SmartSCR+ Project Demo</p>
+                    <!-- Gunakan ID agar bisa dikontrol oleh JavaScript -->
+                    <video id="demoVideo" poster="thumbnail.png" preload="metadata">
+                        <source src="https://youtu.be/JFvauJAKay0" type="video/mp4">
+                        Browser Anda tidak mendukung tag video HTML5.
+                    </video>
+                    
+                    <!-- Overlay Tombol Play Besar -->
+                    <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
+                        <div class="play-btn-large">▶</div>
+                        <p class="play-text">SmartSCR+ Project Demo</p>
                     </div>
                 </div>
             </div>
@@ -125,6 +131,26 @@
             <p>&copy; 2026 SmartSCR+ Team Rumitech. All Rights Reserved.</p>
         </div>
     </footer>
-
+<script>
+        function playVideo() {
+            const video = document.getElementById('demoVideo');
+            const overlay = document.getElementById('videoOverlay');
+            
+            // Putar video
+            video.play();
+            
+            // Tampilkan control bar (play/pause/duration) asli bawaan browser setelah di-play
+            video.setAttribute('controls', 'controls'); 
+            
+            // Animasi menghilang (fade out)
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none'; // Mencegah klik ganda mengganggu video
+            
+            // Hilangkan total dari layar setelah animasi selesai
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 400); 
+        }
+</script>
 </body>
 </html>

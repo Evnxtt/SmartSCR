@@ -497,3 +497,75 @@ footer {
         margin: 10px 0;
     }
 }
+
+/* Video Wrapper & Container */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* Menjaga aspek rasio emas sinematik 16:9 */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border: 4px solid white;
+    background-color: #000;
+}
+
+/* Mengatur video agar responsif */
+.video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Custom Play Overlay (Melayang di Atas Video) */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55); /* Gelap transparan estetik */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+    z-index: 10;
+}
+
+/* Tombol Play Bulat Besar */
+.play-btn-large {
+    width: 85px;
+    height: 85px;
+    background-color: #10b981; /* Hijau Emerald segar, cocok untuk tema Green Emission */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    padding-left: 8px; /* Menggeser sedikit icon segitiga agar presisi di tengah lingkaran */
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
+}
+
+/* Teks Keterangan di Bawah Tombol */
+.play-text {
+    color: white;
+    margin-top: 18px;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Efek Interaktif Saat Kursor Diarahkan ke Video (Hover) */
+.video-overlay:hover .play-btn-large {
+    transform: scale(1.18); /* Tombol sedikit membesar empuk */
+    background-color: #059669; /* Warna hijau berubah lebih pekat */
+    box-shadow: 0 0 35px rgba(5, 150, 105, 0.85); /* Efek pendaran cahaya tombol makin kuat */
+}
